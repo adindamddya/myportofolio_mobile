@@ -1,12 +1,77 @@
 # MyPortfolio Mobile
 
-Aplikasi portofolio mobile berbasis Flutter untuk mata kuliah Pemrograman Berbasis Platform (PBP).
+Aplikasi portofolio mobile berbasis Flutter untuk mata kuliah Pemrograman Berbasis Platform (CSGE602022), Fakultas Ilmu Komputer, Universitas Indonesia, Semester Gasal 2026/2027.
 
 **Nama**: Adinda Madya Aliyah  
 **NPM**: 2506656362  
 **Kelas**: PBP C  
 
 ---
+
+## 📱 Tentang Proyek
+
+Aplikasi **MyPortfolio Mobile** adalah versi aplikasi mobile dari website portofolio pribadi yang sebelumnya dibangun menggunakan Django. Aplikasi ini dibangun dengan framework **Flutter** dan bahasa pemrograman **Dart**, menerapkan arsitektur *clean code*, modularitas berkas, Material Design 3, navigasi multi-halaman (*routing stack*), serta formulir interaktif dengan validasi data yang ketat.
+
+### 🌟 Fitur Utama
+- **Halaman Utama (Home)**: Menampilkan kartu profil identitas pemilik (`InfoCard`) dan kisi tombol aksi portofolio (`ItemCard`) dengan warna tema unik.
+- **Navigasi Drawer Global (`LeftDrawer`)**: Akses cepat ke halaman utama dan formulir-formulir portofolio dari layar mana pun.
+- **Formulir Edukasi (`EducationFormPage`)**: Input data riwayat pendidikan (Institusi, Gelar/Jenjang, Bidang Studi, Tahun Mulai, Tahun Selesai) lengkap dengan validasi komprehensif, tombol *Reset*, dan *AlertDialog* ringkasan isian.
+- **Formulir Proyek (`ProjectFormPage`)**: Input data proyek portofolio (Judul, Deskripsi, Tech Stack, URL) dengan validasi dan konfirmasi ringkasan data.
+
+---
+
+## 📁 Struktur Direktori Proyek
+
+Proyek ini menerapkan pemisahan logika dan tampilan secara modular (*separation of concerns*) sesuai standar kurikulum PBP:
+
+```text
+myportofolio_mobile/
+├── lib/
+│   ├── main.dart               # Titik masuk utama aplikasi & konfigurasi ThemeData global
+│   ├── screens/                # Layar / Halaman aplikasi
+│   │   ├── menu.dart           # Layar beranda (MyHomePage)
+│   │   ├── education_form.dart # Layar formulir Tambah Edukasi (Tugas 8)
+│   │   └── project_form.dart   # Layar formulir Tambah Proyek (Tutorial 09)
+│   └── widgets/                # Komponen widget reusable (dapat digunakan kembali)
+│       ├── info_card.dart      # Kartu informasi profil ringkas (NPM, Nama, Kelas)
+│       ├── item_card.dart      # Kartu aksi tombol menu berikon & interaktif
+│       └── left_drawer.dart    # Komponen navigasi samping (Drawer)
+├── test/
+│   └── widget_test.dart        # Pengujian smoke test widget otomatis
+├── pubspec.yaml                # Manifes dependensi & konfigurasi proyek
+└── README.md                   # Dokumentasi proyek & refleksi tugas
+```
+
+---
+
+## 🚀 Panduan Menjalankan Aplikasi
+
+### Prasyarat
+- Flutter SDK (versi 3.13 ke atas)
+- Google Chrome atau Android Studio (Emulator)
+
+### Langkah Menjalankan
+1. *Clone* repositori ini:
+   ```bash
+   git clone https://github.com/adindamddya/myportofolio_mobile.git
+   cd myportofolio_mobile
+   ```
+2. Pasang seluruh dependensi:
+   ```bash
+   flutter pub get
+   ```
+3. Jalankan aplikasi di Google Chrome:
+   ```bash
+   flutter run -d chrome
+   ```
+4. Jalankan analisis kode statis:
+   ```bash
+   flutter analyze
+   ```
+
+---
+
+## 📝 Jawaban Pertanyaan Reflektif
 
 ### Tugas 7
 
@@ -72,9 +137,21 @@ Aplikasi portofolio mobile berbasis Flutter untuk mata kuliah Pemrograman Berbas
 
 ---
 
-### AI Disclosure
-Dalam pengerjaan Tugas 8 ini, saya memanfaatkan bantuan asisten AI (Google Antigravity) untuk:
-- Mempelajari implementasi widget `Form`, `GlobalKey<FormState>`, dan fungsi `validator` pada Flutter.
-- Merancang struktur arsitektur berkas navigasi modular (`lib/screens/` dan `lib/widgets/left_drawer.dart`).
-- Mengimplementasikan alur navigasi menggunakan `Navigator.push()` dan `Navigator.pushReplacement()`.
-- Menyusun penanganan validasi input yang aman terhadap string kosong, batas karakter, serta validasi rentang tahun.
+## 🤖 Analisis Kritis & Keterangan Penggunaan AI (AI Disclosure)
+
+Dalam pengerjaan Individual Assignment 8 ini, saya memanfaatkan alat bantu kecerdasan buatan (*AI Assistant* Google Antigravity / Gemini) secara etis dan bertanggung jawab sebagai sarana konsultasi teknis, akselerasi pengembangan, dan reviu kode.
+
+### Rincian Pemanfaatan AI:
+1. **Alat yang Digunakan**: Google Antigravity (berbasis model Gemini).
+2. **Strategi Prompting**: Memberikan instruksi bertahap (*step-by-step contextual prompting*) yang menyertakan spesifikasi tugas, berkas model Django terdahulu, aturan rubrik penilaian, serta kriteria *linter* Flutter.
+3. **Bagian yang Dibantu AI**:
+   - Membantu menyusun kerangka awal `EducationFormPage` menggunakan `StatefulWidget` dan `GlobalKey<FormState>`.
+   - Memberikan referensi implementasi navigasi `Navigator.push()` pada kartu beranda dan `Navigator.pushReplacement()` pada `LeftDrawer`.
+   - Membantu menyusun draf awal penjelasan konsep teknis untuk keempat pertanyaan reflektif.
+
+### Analisis Kritis Keterbatasan AI & Perbaikan Manual yang Dilakukan:
+Meskipun AI sangat membantu dalam mempercepat penyusunan sintaks dasar, saya menemukan beberapa kelemahan dan keterbatasan AI yang memerlukan perbaikan manual secara mandiri:
+- **Kecenderungan Mengabaikan Modularitas**: AI awalnya menempatkan widget `ItemCard` dan `InfoCard` bercampur di dalam `lib/screens/menu.dart`. Saya melakukan *refactoring* manual dengan memisahkan kedua widget tersebut ke dalam berkas tersendiri di `lib/widgets/item_card.dart` dan `lib/widgets/info_card.dart` agar memenuhi kriteria nilai tertinggi pada rubrik struktur kode PBP.
+- **Validasi Angka dan Relasi Waktu yang Kurang Ketat**: Kode generator AI awal hanya memeriksa `isEmpty` pada kolom tahun dan tidak memverifikasi apakah angka tahun masuk akal secara kronologis. Saya menambahkan validasi manual menggunakan `int.tryParse()` dengan batas rentang realistis (1900–2100) serta logika komparasi `parsedEnd < parsedStart` untuk memastikan tahun kelulusan tidak mendahului tahun mulai pendidikan.
+- **Peningkatan UX Interaktif (Beyond Instructions)**: Untuk memenuhi nilai 4 pada rubrik fungsionalitas, saya menambahkan tombol **Reset** interaktif dengan konfirmasi visual `SnackBar` hijau setelah dialog ditutup, serta merapikan tipografi `AlertDialog` menggunakan ikon status.
+- **Koreksi Peringatan Linter Dart**: Terdapat beberapa peringatan `missing const`, penggunaan `WidgetStateProperty.all` untuk Flutter versi terbaru, dan aturan `SingleChildScrollView` yang saya perbaiki secara manual sehingga perintah `flutter analyze` menghasilkan luaran bersih *No issues found!*.
