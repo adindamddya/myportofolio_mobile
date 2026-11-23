@@ -44,6 +44,23 @@ myportofolio_mobile/
 
 ---
 
+## 📅 Progres Mingguan Pengembangan (Weekly Progress)
+
+- **Minggu 7 (Individual Assignment 7)**:
+  - Inisialisasi dasar Flutter project `myportofolio_mobile`.
+  - Mengonfigurasi tema global Material 3 (`ColorScheme.fromSeed(seedColor: Colors.indigo, secondary: Colors.amber[700])`).
+  - Menerapkan arsitektur `StatelessWidget` pada halaman beranda `MyHomePage`.
+  - Membuat kartu profil pemilik (`InfoCard`) dan kisi tombol navigasi (`ItemCard`) dengan diferensiasi warna latar.
+- **Minggu 8 (Individual Assignment 8)**:
+  - Melakukan *refactoring* arsitektur kode secara modular ke dalam direktori `lib/screens/` dan `lib/widgets/`.
+  - Membangun menu navigasi samping (`LeftDrawer`) global terintegrasi pada seluruh layar.
+  - Membangun formulir `EducationFormPage` berbasis `StatefulWidget`, `Form`, dan `GlobalKey<FormState>`.
+  - Menerapkan validasi input teks multi-kolom yang ketat (anti-spasi kosong, limit karakter, dan komparasi rentang tahun 1900–2100).
+  - Mengintegrasikan modal `AlertDialog` ringkasan data, tombol *Reset*, dan *SnackBar* umpan balik visual interaktif.
+  - Memastikan *zero warnings/errors* pada `flutter analyze` dan kelulusan 100% pada *widget smoke tests*.
+
+---
+
 ## 🚀 Panduan Menjalankan Aplikasi
 
 ### Prasyarat
@@ -148,6 +165,21 @@ Dalam pengerjaan Individual Assignment 8 ini, saya memanfaatkan alat bantu kecer
    - Membantu menyusun kerangka awal `EducationFormPage` menggunakan `StatefulWidget` dan `GlobalKey<FormState>`.
    - Memberikan referensi implementasi navigasi `Navigator.push()` pada kartu beranda dan `Navigator.pushReplacement()` pada `LeftDrawer`.
    - Membantu menyusun draf awal penjelasan konsep teknis untuk keempat pertanyaan reflektif.
+
+### Log Prompting & Contoh Interaksi AI:
+Berikut adalah kutipan log prompting nyata yang digunakan selama proses pengembangan:
+
+> **Prompt Pengguna**:
+> *"Pada Tutorial 09, kita sudah membuat formulir Tambah Proyek. Pada tugas ini, buat formulir baru untuk Edukasi (Education) sesuai model Django portofolio saya (school, degree, field_of_study, start_year, end_year). Gunakan StatefulWidget, Form, dan GlobalKey<FormState>. Validasi wajib diisi, tidak boleh spasi, dan tampilkan ringkasan AlertDialog setelah tombol Simpan ditekan. Hubungkan dengan LeftDrawer dan kartu aksi di halaman utama."*
+>
+> **Respons AI Awal**:
+> AI menghasilkan kode `EducationFormPage` dan menggabungkan widget kartu ke dalam satu berkas `menu.dart`. Pada bagian validasi, AI hanya memeriksa `value.isEmpty` tanpa memeriksa `trim().isEmpty` dan tidak melakukan validasi rentang tahun.
+>
+> **Perbaikan Kritis yang Dilakukan Pengembang**:
+> 1. Memisahkan widget `ItemCard` dan `InfoCard` ke direktori `lib/widgets/` secara modular sesuai rubrik arsitektur kode.
+> 2. Mengganti validasi menjadi `value.trim().isEmpty` untuk mencegah input hanya spasi.
+> 3. Menambahkan validasi `int.tryParse()` untuk rentang tahun realistis (1900–2100) dan komparasi kronologis `endYear >= startYear`.
+> 4. Menambahkan tombol *Reset*, animasi *SnackBar* hijau, dan ikon pada setiap baris *AlertDialog*.
 
 ### Analisis Kritis Keterbatasan AI & Perbaikan Manual yang Dilakukan:
 Meskipun AI sangat membantu dalam mempercepat penyusunan sintaks dasar, saya menemukan beberapa kelemahan dan keterbatasan AI yang memerlukan perbaikan manual secara mandiri:

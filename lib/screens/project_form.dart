@@ -132,15 +132,40 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                   },
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all(
-                        Theme.of(context).colorScheme.primary,
+              const SizedBox(height: 12.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  OutlinedButton.icon(
+                    icon: const Icon(Icons.refresh),
+                    label: const Text("Reset"),
+                    onPressed: () {
+                      _formKey.currentState!.reset();
+                      setState(() {
+                        _title = "";
+                        _description = "";
+                        _techStack = "";
+                        _projectUrl = "";
+                      });
+                    },
+                  ),
+                  const SizedBox(width: 12.0),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0,
+                        vertical: 12.0,
                       ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    icon: const Icon(Icons.save),
+                    label: const Text(
+                      "Simpan",
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -148,21 +173,30 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text('Proyek Berhasil Tersimpan'),
+                              title: const Row(
+                                children: [
+                                  Icon(Icons.check_circle, color: Colors.green),
+                                  SizedBox(width: 8.0),
+                                  Text('Proyek Tersimpan', style: TextStyle(fontSize: 18.0)),
+                                ],
+                              ),
                               content: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text('Judul: $_title'),
+                                    const SizedBox(height: 4.0),
                                     Text('Deskripsi: $_description'),
+                                    const SizedBox(height: 4.0),
                                     Text('Tech Stack: $_techStack'),
+                                    const SizedBox(height: 4.0),
                                     Text('URL: $_projectUrl'),
                                   ],
                                 ),
                               ),
                               actions: [
                                 TextButton(
-                                  child: const Text('OK'),
+                                  child: const Text('OK', style: TextStyle(fontWeight: FontWeight.bold)),
                                   onPressed: () {
                                     Navigator.pop(context);
                                     _formKey.currentState!.reset();
@@ -172,6 +206,15 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                                       _techStack = "";
                                       _projectUrl = "";
                                     });
+                                    ScaffoldMessenger.of(context)
+                                      ..hideCurrentSnackBar()
+                                      ..showSnackBar(
+                                        const SnackBar(
+                                          content: Text("Data proyek berhasil disimpan ke portofolio!"),
+                                          backgroundColor: Colors.green,
+                                          behavior: SnackBarBehavior.floating,
+                                        ),
+                                      );
                                   },
                                 ),
                               ],
@@ -180,13 +223,10 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                         );
                       }
                     },
-                    child: const Text(
-                      "Simpan",
-                      style: TextStyle(color: Colors.white),
-                    ),
                   ),
-                ),
+                ],
               ),
+              const SizedBox(height: 24.0),
             ],
           ),
         ),
